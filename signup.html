@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a192f;
+            --accent-blue: #64ffda;
+            --text-light: #ccd6f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: var(--text-light);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background: var(--primary-dark);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .signup-container h2 {
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: var(--text-light);
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid var(--accent-blue);
+        }
+
+        .show-password {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .show-password input {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .signup-button {
+            display: inline-block;
+            padding: 1rem;
+            background: var(--accent-blue);
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            border: none;
+        }
+
+        .signup-button:hover {
+            opacity: 0.9;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            <div class="form-group">
+                <input type="text" id="owner-name" placeholder="Owner's Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="signup-email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="signup-password" placeholder="Password" required>
+                <div class="show-password">
+                    <input type="checkbox" id="signup-showPassword"> Show Password
+                </div>
+            </div>
+            <p id="error-message" class="error-message">Please enter a valid email and password (at least 6 characters).</p>
+            <button type="submit" class="signup-button">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("signup-showPassword").addEventListener("change", function() {
+            const passwordField = document.getElementById("signup-password");
+            passwordField.type = this.checked ? "text" : "password";
+        });
+
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const ownerName = document.getElementById("owner-name").value;
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+            const errorMessage = document.getElementById("error-message");
+
+            // Simple email validation
+            const emailPattern = /^[^@]+@\w+(\.\w+)+\w$/;
+            if (!emailPattern.test(email)) {
+                errorMessage.textContent = "Please enter a valid email address.";
+                errorMessage.style.display = "block";
+                return;
+            }
+
+            // Password validation (minimum 6 characters)
+            if (password.length < 6) {
+                errorMessage.textContent = "Password must be at least 6 characters.";
+                errorMessage.style.display = "block";
+                return;
+            }
+
+            // Store user data in localStorage
+            localStorage.setItem("ownerName", ownerName);
+            localStorage.setItem("userEmail", email);
+            localStorage.setItem("userPassword", password);
+
+            alert("Sign-up successful! You can now log in.");
+            window.location.href = "login.html"; // Redirect to login page
+        });
+    </script>
+
+</body>
+</html>

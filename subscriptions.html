@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriptions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a192f;
+            --accent-blue: #64ffda;
+            --text-light: #ccd6f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: var(--text-light);
+            line-height: 1.6;
+            text-align: center;
+            padding: 5%;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary-dark);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            text-align: left;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        /* Subscription Section */
+        .subscriptions {
+            max-width: 900px;
+            margin: 100px auto 0;
+            padding: 3rem;
+            background: var(--primary-dark);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+        }
+
+        .subscriptions h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-light), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .price-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid var(--accent-blue);
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.3);
+        }
+
+        .price {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin: 1rem 0;
+        }
+
+        .subscribe-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent-blue);
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .subscribe-button:hover {
+            transform: scale(1.05);
+            background: rgba(100, 255, 218, 0.2);
+        }
+
+        /* Free Trial Card */
+        .free-trial {
+            border: 2px dashed var(--accent-blue);
+            background: rgba(100, 255, 218, 0.1);
+            font-weight: bold;
+        }
+
+        .free-trial .subscribe-button {
+            background: transparent;
+            border: 2px solid var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .free-trial .subscribe-button:hover {
+            background: var(--accent-blue);
+            color: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">PARKING MANAGEMENT</div>
+    </header>
+
+    <section class="subscriptions">
+        <h2>Choose Your Subscription Plan</h2>
+        <div class="pricing-cards">
+            <div class="price-card free-trial">
+                <h3>Free Trial</h3>
+                <div class="price">1 Week</div>
+                <p>Try all features for free!</p>
+                <a href="trial.html" class="subscribe-button">Start Trial</a>
+            </div>
+            <div class="price-card">
+                <h3>1 Month Plan</h3>
+                <div class="price">$100</div>
+                <p>Perfect for short-term needs</p>
+                <a href="#" class="subscribe-button">Subscribe</a>
+            </div>
+            <div class="price-card">
+                <h3>6 Months Plan</h3>
+                <div class="price">$500</div>
+                <p>Save more with a longer plan</p>
+                <a href="#" class="subscribe-button">Subscribe</a>
+            </div>
+            <div class="price-card">
+                <h3>12 Months Plan</h3>
+                <div class="price">$800</div>
+                <p>Best value for premium users</p>
+                <a href="#" class="subscribe-button">Subscribe</a>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

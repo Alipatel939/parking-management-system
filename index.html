@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Parking Solutions for Modern Cities">
+    <title>Parking Management - Smart Parking Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- External CSS file -->
+    <style>
+        /* Positioning and Styling for the Box */
+        .top-right-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-right-box a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 5px;
+            font-weight: 600;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .top-right-box a:hover {
+            background-color: #444;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">PARKING MANAGEMENT</div>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-icon" onclick="mobileMenu()">☰</button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Top-right Box for Links -->
+    <div class="top-right-box">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Smart Parking Solutions for Modern Cities</h1>
+            <p>Revolutionize your parking management with AI-powered solutions</p>
+            <a href="login.html" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Parking Management Section -->
+    <section class="parking-management" id="parking">
+        <div class="container">
+            <h2>Parking Management System</h2>
+            <p>Select a parking spot and enter vehicle details.</p>
+
+            <!-- Parking Management Form -->
+            <div class="parking-form">
+                <input type="text" id="vehicleNumber" placeholder="Enter Vehicle Number">
+                <input type="text" id="ownerName" placeholder="Enter Owner's Name">
+                <button onclick="saveData()">Save Data</button> <!-- Save data button -->
+            </div>
+
+            <!-- Parking Spots (dynamically generated) -->
+            <div class="parking-spots" id="parkingSpots">
+                <!-- Parking spots will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section (optional, add if needed) -->
+    <footer>
+        <p>&copy; 2025 Parking Management. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle Function
+        const mobileMenu = () => {
+            const menu = document.querySelector('.nav-links');
+            menu.classList.toggle('show'); // Toggle visibility of the menu on small screens
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            let vehicleNumber = document.getElementById('vehicleNumber').value;
+            let ownerName = document.getElementById('ownerName').value;
+
+            localStorage.setItem('vehicleNumber', vehicleNumber);
+            localStorage.setItem('ownerName', ownerName);
+
+            alert('Data saved!');
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Trial - Parking Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0e17;
+            color: #ccd6f6;
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .parking-section {
+            width: 60%;
+        }
+
+        .info-section {
+            width: 35%;
+            background-color: #1f2633;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #4fa3d1;
+            text-align: center;
+        }
+
+        .parking-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .parking-form input, .parking-form button {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #4fa3d1;
+            background-color: #1f2633;
+            color: #ccd6f6;
+        }
+
+        .parking-form button {
+            cursor: pointer;
+            background-color: #4fa3d1; /* Blue color */
+            color: #ffffff; /* White text */
+            border: 1px solid #4fa3d1; /* Border matching the background */
+        }
+
+        .parking-form button:hover {
+            background-color: #3578a8; /* Darker blue on hover */
+        }
+
+        .parking-spots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+            gap: 8px;
+            justify-content: center;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .spot {
+            width: 40px;
+            height: 40px;
+            background-color: #2a3b4c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ccd6f6;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .spot:hover {
+            background-color: #4fa3d1;
+        }
+
+        .occupied {
+            background-color: #f44336;
+        }
+
+        .available {
+            background-color: #4caf50;
+        }
+
+        .available-table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .available-table th, .available-table td {
+            border: 1px solid #ccd6f6;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="parking-section">
+            <h1>Parking Management System</h1>
+            <p style="text-align: center;">Select a parking spot and enter vehicle details.</p>
+            <div class="parking-spots" id="parkingSpots"></div>
+            <table class="available-table" id="availableTable">
+                <thead>
+                    <tr>
+                        <th>Available Spots</th>
+                    </tr>
+                </thead>
+                <tbody id="availableTableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="info-section">
+            <h2>Vehicle Information</h2>
+            <div class="parking-form">
+                <input type="text" id="vehicleNumber" placeholder="Enter Vehicle Number" oninput="convertToUpperCase()">
+                <input type="text" id="ownerName" placeholder="Enter Owner's Name">
+                <button onclick="checkAvailability()">Check Availability</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let parkingSpots = {};
+        let totalSpots = 200;
+
+        for (let i = 1; i <= totalSpots; i++) {
+            parkingSpots[`spot${i}`] = { available: true, owner: '', vehicle: '', inTime: '', outTime: '' };
+            let spotDiv = document.createElement('div');
+            spotDiv.id = `spot${i}`;
+            spotDiv.className = 'spot available';
+            spotDiv.onclick = () => bookSpot(`spot${i}`);
+            spotDiv.innerHTML = `S${i}`;
+            document.getElementById('parkingSpots').appendChild(spotDiv);
+        }
+
+        function checkAvailability() {
+            const vehicleNumber = document.getElementById('vehicleNumber').value;
+            const ownerName = document.getElementById('ownerName').value;
+            if (!vehicleNumber || !ownerName) {
+                alert("Please enter both vehicle number and owner's name.");
+                return;
+            }
+            alert("You can now select a parking spot.");
+            showAvailableSpots();
+        }
+
+        function showAvailableSpots() {
+            const tableBody = document.getElementById('availableTableBody');
+            tableBody.innerHTML = '';
+            for (let key in parkingSpots) {
+                if (parkingSpots[key].available) {
+                    let row = document.createElement('tr');
+                    let cell = document.createElement('td');
+                    cell.textContent = key.replace('spot', 'S');
+                    row.appendChild(cell);
+                    tableBody.appendChild(row);
+                }
+            }
+        }
+
+        function bookSpot(spotId) {
+            const spot = parkingSpots[spotId];
+            const vehicleNumber = document.getElementById('vehicleNumber').value;
+            const ownerName = document.getElementById('ownerName').value;
+            const currentTime = new Date().toLocaleString();
+
+            if (!vehicleNumber || !ownerName) {
+                alert("Please enter both vehicle number and owner's name.");
+                return;
+            }
+
+            if (!spot.available) {
+                alert(`Spot ${spotId.replace('spot', '')} is already occupied.`);
+                return;
+            }
+
+            spot.available = false;
+            spot.owner = ownerName;
+            spot.vehicle = vehicleNumber;
+            spot.inTime = currentTime;
+            
+            document.getElementById(spotId).classList.remove('available');
+            document.getElementById(spotId).classList.add('occupied');
+            document.getElementById(spotId).innerHTML = `S${spotId.replace('spot', '')}`;
+            showAvailableSpots();
+        }
+
+        function convertToUpperCase() {
+            const vehicleNumber = document.getElementById('vehicleNumber');
+            vehicleNumber.value = vehicleNumber.value.toUpperCase();
+        }
+    </script>
+</body>
+</html>
